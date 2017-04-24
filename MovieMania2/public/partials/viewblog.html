@@ -1,13 +1,48 @@
-<h1>Add a Blog</h1>
-
+<h1>Online Blogging View Blog</h1>
+<a href="/#/">Click here to Home Page</a>
+<p>
+Blog Title: blog1
+</p>
+Blog Author: 123
+<p>
+Blog Rating: 0
+</p>
 <form>
     <div class="form-group">
-        <label>Date</label>		
-        <input class="form-control" ng-model="post.title"></input>
+        <label>Rate it (Enter a number 1 to 5)</label>		
+        <input class="form-control" ng-model="post.rate"></input>
+        <input type="button" class="btn btn-primary" value="Rate" ng-click="save()"></input>
+    </div>
+</form>
+
+<ul>
+    <li ng-repeat='post in posts'>
+        <a href="/#/blogs/{{blog._id}}/posts/{{post._id}}">
+            Date:{{post.date}}
+            Heading:{{post.heading}}
+            Body:{{post.body}}
+        </a>
+        <a href="/#/blogs/{{blog._id}}/delete/{{post._id}}">
+            <i class="glyphicon glyphicon-remove"></i>
+        </a>
+    </li>
+</ul>
+<h2>Add a post</h2>
+<form>
+    <div class="form-group">
+        <label>date</label>		
+        <input class="form-control" ng-model="post.date"></input>
     </div>
     <div class="form-group">
-        <label>Heading</label>
-        <textarea class="form-control" ng-model="post.eading"></textarea>
+        <label>Heading</label>		
+        <input class="form-control" ng-model="post.hading"></input>
     </div>
-    <input type="button" class="btn btn-primary" value="Save" ng-click="save()"></input>	
+    <div class="form-group">
+        <label>Body</label>
+        <textarea class="form-control" ng-model="post.body"></textarea>
+    </div>
+    <input type="button" class="btn btn-primary" value="Post" ng-click="save()"></input>	
 </form>
+
+
+
