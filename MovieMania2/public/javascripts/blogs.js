@@ -6,7 +6,7 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: 'partials/home.html',
             controller: 'HomeCtrl'
         })
-        .when('/blogs', {
+        .when('/add-blog', {
             templateUrl: 'partials/home.html',
             controller: 'AddBlogCtrl'
         })
@@ -33,7 +33,13 @@ app.controller('HomeCtrl', ['$scope', '$resource',
         var Blogs = $resource('/api/blogs');
         Blogs.query(function(blogs){
             $scope.blogs = blogs;
-    });
+        });
+        $scope.save = function(){
+            var Blogs = $resource('/api/blogs');
+            Blogs.save($scope.blog, function(){
+                location.reload();
+            });
+        };
 }]);
 
 
