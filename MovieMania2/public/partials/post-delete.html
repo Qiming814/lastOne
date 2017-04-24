@@ -1,0 +1,17 @@
+<h1>Delete Post</h1>
+<p>
+    Are you sure you want to delete this Post?
+</p>
+
+
+<ul>
+    <li>Date: {{post.date}}</li>
+    <li>Heading: {{post.heading}}</li>
+    <li>Body: {{post.body}}</li>
+
+</ul>
+
+<input type="button" value="Yes, Delete" class="btn btn-danger" ng-click="delete()" />
+
+<a class="btn btn-default" href="/#/blogs/viewblog/{{backid}}">No, Go Back</a>
+

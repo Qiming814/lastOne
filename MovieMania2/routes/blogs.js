@@ -32,6 +32,33 @@ router.delete('/:id', function(req, res){
     });
 });
 
+router.delete('/:id/:postid', function(req, res){
+    var collection = db.get('blogs');
+    collection.findOne({ _id: req.params.id }, function(err, blogs){
+        if (err) throw err;
+        blog=blogs;
+        var jslength=0;
+        var newposts=[];
+        var length=0;
+        for(var posts in blog['post']){
+            length++;
+        }
+        for(var i=0;i<length;i++){
+            if(blog['post'][i]['postid']!=req.params.postid){
+                newposts.push(blog['post'][i]);
+            }
+        }
+        blog['post']=newposts;
+        var whereStr={_id: req.params.id};
+        collection.update(whereStr,blog, function(err, blogs){
+            if(err) throw err;
+            res.json(blogs);
+        });
+    });
+});
+
+
+
 router.post('/:id',function(req,res){
     var collection = db.get('blogs');
     var blog;

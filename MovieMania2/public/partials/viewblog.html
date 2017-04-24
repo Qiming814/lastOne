@@ -17,12 +17,12 @@ Blog Rating: 0
 
 <ul>
     <li ng-repeat='post in posts'>
-        <a href="/#/blogs/{{blog._id}}/posts/{{post._id}}">
+        <a>
             Date:{{post.date}}
             Heading:{{post.heading}}
             Body:{{post.body}}
         </a>
-        <a href="/#/blogs/{{blog._id}}/delete/{{post._id}}">
+        <a href="/#/blogs/post/delete/{{blog._id}}/{{post.postid}}">
             <i class="glyphicon glyphicon-remove"></i>
         </a>
     </li>

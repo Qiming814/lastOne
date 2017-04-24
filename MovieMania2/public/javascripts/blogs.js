@@ -6,7 +6,7 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: 'partials/home.html',
             controller: 'HomeCtrl'
         })
-        .when('/blogs', {
+        .when('/add-blog', {
             templateUrl: 'partials/home.html',
             controller: 'AddBlogCtrl'
         })
@@ -26,6 +26,10 @@ app.config(['$routeProvider', function($routeProvider){
         .when('/blogs/add-post/:id',{
             templateUrl:'partials/post-form.html',
             controller: 'AddPostCtrl'
+        })
+        .when('/blogs/post/delete/:id/:postid', {
+            templateUrl: 'partials/post-delete.html',
+            controller: 'DeletePostCtrl'
         })
         .otherwise({
             redirectTo: '/'
@@ -62,6 +66,32 @@ app.controller('DeleteBlogCtrl', ['$scope', '$resource', '$location', '$routePar
         $scope.delete = function(){
             Blogs.delete({ id: $routeParams.id }, function(blog){
                 $location.path('/');
+            });
+        };
+}]);
+
+app.controller('DeletePostCtrl', ['$scope', '$resource', '$location', '$routeParams',
+    function($scope, $resource, $location, $routeParams){
+        var Blogs = $resource('/api/blogs/:id');
+        Blogs.get({ id: $routeParams.id }, function(blog){
+            var post={};
+            var length=0;
+            for(var posts in blog['post']){
+                length++;
+            }
+            for(var i=0;i<length;i++){
+                if(blog['post'][i]['postid']==$routeParams.postid){
+                    $scope.post=blog['post'][i];
+                }
+            }
+            $scope.backid=$routeParams.id;
+        });
+        
+        $scope.delete = function(){
+            Blogs = $resource('/api/blogs/:id/:postid');
+            Blogs.delete({ id: $routeParams.id ,postid: $routeParams.postid}, function(blog){
+                var path='/blogs/viewblog/'+$routeParams.id;
+                $location.path(path);
             });
         };
 }]);
