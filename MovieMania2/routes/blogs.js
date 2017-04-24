@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
     var collection = db.get('blogs');
     collection.find({}, function(err, blogs){
         if (err) throw err;
-      	res.json(blogs);
+        res.json(blogs);
     });
 });
 
@@ -18,7 +18,7 @@ router.get('/:id', function(req, res) {
     collection.findOne({ _id: req.params.id }, function(err, blogs){
         if (err) throw err;
 
-      	res.json(blogs);
+        res.json(blogs);
     });
 });
 
@@ -56,9 +56,6 @@ router.post('/:id',function(req,res){
             res.json(blogs);
         });
     });
-    
-
-
 
 });
 
