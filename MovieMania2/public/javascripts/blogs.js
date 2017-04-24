@@ -23,6 +23,10 @@ app.config(['$routeProvider', function($routeProvider){
             controller: 'RateBlogCtrl'
         })
 
+        .when('/blogs/add-post/:id',{
+            templateUrl:'partials/post-form.html',
+            controller: 'AddPostCtrl'
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -72,10 +76,38 @@ app.controller('ViewBlogCtrl', ['$scope', '$resource', '$location', '$routeParam
     function($scope, $resource, $location, $routeParams){
         var Blogs = $resource('/api/blogs/:id');
         Blogs.get({ id: $routeParams.id }, function(blog){
+            $scope.posts = blog['post'];
+        });
+
+        var Blogs = $resource('/api/blogs/:id');
+        Blogs.get({ id: $routeParams.id }, function(blog){
             $scope.blog = blog;
         });
+        
+        $scope.update = function(){
+            var Blogs = $resource('/api/blogs/'+$routeParams.id);
+            Blogs.save($scope.post, function(){
+                location.reload(); 
+            });
+        };
+
     
 }]);
+
+app.controller('AddPostCtrl',['$scope', '$resource','$location','$routeParams',function($scope,$resource,$location,$routeParams){
+    var Blogs = $resource('/api/blogs/:id');
+    Blogs.get({ id: $routeParams.id }, function(blog){
+        $scope.blog = blog;
+    });
+    
+    $scope.save = function(){
+        var Blogs = $resource('/api/blogs/'+$routeParams.id);
+        Blogs.save($scope.post, function(){
+            $location.path('/');
+        });
+    };
+}]);
+
 
 
 

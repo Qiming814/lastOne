@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
     var collection = db.get('blogs');
     collection.find({}, function(err, blogs){
         if (err) throw err;
-      	res.json(blogs);
+        res.json(blogs);
     });
 });
 
@@ -18,7 +18,7 @@ router.get('/:id', function(req, res) {
     collection.findOne({ _id: req.params.id }, function(err, blogs){
         if (err) throw err;
 
-      	res.json(blogs);
+        res.json(blogs);
     });
 });
 
@@ -32,17 +32,48 @@ router.delete('/:id', function(req, res){
     });
 });
 
+router.post('/:id',function(req,res){
+    var collection = db.get('blogs');
+    var blog;
+    collection.findOne({ _id: req.params.id }, function(err, blogs){
+        if (err) throw err;
+        blog=blogs;
+        var jslength=0;
+        for(var js2 in blog['post']){
+            jslength++;
+        }
+        var postid=jslength+1;
+
+        blog['post'].push({
+            postid:postid,
+            date:req.body.date,
+            heading:req.body.heading,
+            body:req.body.body
+        });
+        var whereStr={_id: req.params.id};
+        collection.update(whereStr,blog, function(err, blogs){
+            if(err) throw err;
+            res.json(blogs);
+        });
+    });
+
+});
+
 router.post('/', function(req, res){
     var collection = db.get('blogs');
     collection.insert({
         title: req.body.title,
         author: req.body.author,
+        rating: 0,
+        post:[]
     }, function(err, blogs){
         if (err) throw err;
 
         res.json(blogs);
     });
 });
+
+
 
 module.exports = router;
 
