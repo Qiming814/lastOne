@@ -1,17 +1,17 @@
 <h1>Online Blogging View Blog</h1>
 <a href="/#/">Click here to Home Page</a>
+
 <p>
-Blog Title: blog1
+    Title: {{blog.title}}</p>
+   <p> Author: {{blog.author}}</p>
+    <p>Rating: {{blog.rating}}
 </p>
-Blog Author: 123
-<p>
-Blog Rating: 0
-</p>
+
 <form>
     <div class="form-group">
-        <label>Rate it (Enter a number 1 to 5)</label>		
+        <label>Rate it (Enter a number from 1 to 5)</label>		
         <input class="form-control" ng-model="post.rate"></input>
-        <input type="button" class="btn btn-primary" value="Rate" ng-click="save()"></input>
+        <input type="button" class="btn btn-primary" value="Rate" ng-click="rate()"></input>
     </div>
 </form>
 
@@ -43,6 +43,3 @@ Blog Rating: 0
     </div>
     <input type="button" class="btn btn-primary" value="Post" ng-click="update()"></input>	
 </form>
-
-
-
