@@ -14,14 +14,14 @@
         <input type="button" class="btn btn-primary" value="Rate" ng-click="rate()"></input>
     </div>
 </form>
-
+<h2>Post:</h2>
 <ul>
     <li ng-repeat='post in posts'>
-        <a>
+        <b>
             Date:{{post.date}}
             Heading:{{post.heading}}
             Body:{{post.body}}
-        </a>
+        </b>
         <a href="/#/blogs/post/delete/{{blog._id}}/{{post.postid}}">
             <i class="glyphicon glyphicon-remove"></i>
         </a>

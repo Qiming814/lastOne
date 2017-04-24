@@ -27,10 +27,6 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl:'partials/post-form.html',
             controller: 'AddPostCtrl'
         })
-        .when('/blogs/viewpost/:id', {
-            templateUrl: 'partials/viewpost.html',
-            controller: 'ViewPostCtrl'
-        })
         .when('/blogs/post/delete/:id/:postid', {
             templateUrl: 'partials/post-delete.html',
             controller: 'DeletePostCtrl'
