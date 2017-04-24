@@ -1,4 +1,4 @@
-<h1>MovieMania Home Page</h1>
+<h1>Online Blogging Home Page</h1>
 
 <p>
     <a href="/#/add-blog">Add a blog</a>
@@ -6,10 +6,10 @@
 
 <ul>
     <li ng-repeat='blog in blogs'>
-        <a href="/#/blogs/{{blog._id}}">
-            {{blog.title}}
-            {{blog.author}}
-            {{blog.rating}}
+        <a href="/#/blogs/viewblog/{{blog._id}}">
+            Title: {{blog.title}}
+            Author: {{blog.author}}
+            Rating: 0{{blog.rating}}
         </a>
         <a href="/#/blogs/delete/{{blog._id}}">
             <i class="glyphicon glyphicon-remove"></i>
@@ -17,4 +17,17 @@
         <a href="/#/blogs/add-post/{{blog._id}}"> Add post</a>
     </li>
 </ul>
+
+<h2>Add a Blog</h2>
+<form>
+    <div class="form-group">
+        <label>Title</label>		
+        <input class="form-control" ng-model="blog.title"></input>
+    </div>
+    <div class="form-group">
+        <label>Author</label>
+        <textarea class="form-control" ng-model="blog.author"></textarea>
+    </div>
+    <input type="button" class="btn btn-primary" value="Save" ng-click="save()"></input>	
+</form>
 

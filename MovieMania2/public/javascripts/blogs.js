@@ -6,8 +6,8 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: 'partials/home.html',
             controller: 'HomeCtrl'
         })
-        .when('/add-blog', {
-            templateUrl: 'partials/movie-form.html',
+        .when('/blogs', {
+            templateUrl: 'partials/home.html',
             controller: 'AddBlogCtrl'
         })
         .when('/blogs/delete/:id', {
@@ -18,6 +18,11 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: 'partials/viewblog.html',
             controller: 'ViewBlogCtrl'
         })
+        .when('/blogs/rate/:id', {
+            templateUrl: 'partials/viewblog.html',
+            controller: 'RateBlogCtrl'
+        })
+
         .when('/blogs/add-post/:id',{
             templateUrl:'partials/post-form.html',
             controller: 'AddPostCtrl'
@@ -61,6 +66,14 @@ app.controller('DeleteBlogCtrl', ['$scope', '$resource', '$location', '$routePar
         };
 }]);
 
+app.controller('ViewBlogCtrl', ['$scope', '$resource', '$location', '$routeParams',
+    function($scope, $resource, $location, $routeParams){
+        var Blogs = $resource('/api/blogs/:id');
+        Blogs.get({ id: $routeParams.id }, function(blog){
+            $scope.blog = blog;
+        });
+    
+}]);
 
 app.controller('AddPostCtrl',['$scope', '$resource','$location','$routeParams',function($scope,$resource,$location,$routeParams){
     var Blogs = $resource('/api/blogs/:id');
@@ -75,6 +88,7 @@ app.controller('AddPostCtrl',['$scope', '$resource','$location','$routeParams',f
         });
     };
 }]);
+
 
 
 
