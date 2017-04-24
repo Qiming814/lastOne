@@ -70,8 +70,21 @@ app.controller('ViewBlogCtrl', ['$scope', '$resource', '$location', '$routeParam
     function($scope, $resource, $location, $routeParams){
         var Blogs = $resource('/api/blogs/:id');
         Blogs.get({ id: $routeParams.id }, function(blog){
+            $scope.posts = blog['post'];
+        });
+
+        var Blogs = $resource('/api/blogs/:id');
+        Blogs.get({ id: $routeParams.id }, function(blog){
             $scope.blog = blog;
         });
+        
+        $scope.update = function(){
+            var Blogs = $resource('/api/blogs/'+$routeParams.id);
+            Blogs.save($scope.post, function(){
+                location.reload(); 
+            });
+        };
+
     
 }]);
 
